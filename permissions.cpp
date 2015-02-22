@@ -1,44 +1,88 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include <iostream>
 #include "permissions.h"
 
-void createPermissions(Permissions *per, int tempUmask)
+using namespace std;
+
+bool Permissions::isPermitted(int x)const
 {
-  
-  //per -> octal = (short*)malloc(sizeof(short));
-  per -> octal = tempUmask;
-  
+    if (x == 1)//testing reading permissions
+    {
+      if (permissions & 256 )
+        return true; // has permission
+    }//if
 
-}// createPermissions()
+    else if (x == 2)
+    {
+      if (permissions & 128)//testing writing permissions
+        return true; //permissions
+    }//if
 
-void printPermissions(Permissions *per)
+
+    else if (x == 3) //testing execute permissions
+    {
+      if (permissions & 64)
+        return true;
+    }//if
+  else
+  {
+    return false;
+  }
+}//isPermitted()
+
+void Permissions::set(short originalPermissions, short umask)
+{
+  permissions = originalPermissions & ~umask;
+}  // set()
+
+void Permissions::print() const
 {
 
-  if (per -> octal == 0)
-    printf("rwx ");
 
-  if (per -> octal == 1)
-    printf("rw- ");
+  if (permissions & 256) //Others permissions
+    cout << "r";
+  else  // no others read permissions
+    cout << "-";
 
-  if (per -> octal == 2)
-    printf("r-x ");
+  if (permissions & 128)
+    cout << "w";
+  else  // no others write permissions
+    cout << "-";
 
-  if (per -> octal == 3)
-    printf("r-- ");
-
-  if (per -> octal == 4)
-    printf("-wx ");
-
-  if (per -> octal == 5)
-    printf("-w- ");
-
-  if (per -> octal == 6)
-    printf("--x ");
-
-  if (per -> octal == 7)
-    printf("--- ");
-
-}// printPermissions()
+  if (permissions & 64)
+    cout << "x";
+  else  // no others execute permissions
+    cout << "-";
 
 
+  if (permissions & 32) //group permissions
+    cout << "r";
+  else  // no group read permissions
+    cout << "-";
+
+  if (permissions & 16)
+    cout << "w";
+  else  // no group write permissions
+    cout << "-";
+
+  if (permissions & 8)
+    cout << "x";
+  else  // no group execute permissions
+    cout << "-";
+
+
+  if (permissions & 4)
+    cout << "r";
+  else  // no read permissions
+    cout << "-";
+
+  if (permissions & 2)
+    cout << "w";
+  else  // no write permissions
+    cout << "-";
+
+  if (permissions & 1)
+    cout << "x";
+  else  // no execute permissions
+    cout << "-";
+
+}  // print()

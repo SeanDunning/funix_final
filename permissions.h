@@ -1,14 +1,13 @@
 #ifndef PERMISSIONS_H
-#define PERMISSIONS_H
+  #define PERMISSIONS_H
 
-typedef struct Permissions 
+class Permissions
 {
-  short octal;
-}Perm;
-
-void createPermissions(Permissions *per, int tempUmask); // set rwx? umask?
-void printPermissions(Permissions *per); // print rwx when prompted?
-
-#endif
-
+  short permissions;
+public:
+  bool isPermitted(int x)const;
+  void set(short originalPermissions, short umask);
+  void print() const;
+};  // class Permissions;
+#endif  // PERMISSIONS_H
 
