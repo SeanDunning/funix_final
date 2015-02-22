@@ -47,7 +47,7 @@ Directory* Directory::cd(int argCount, const char *arguments[])
   {
     cout << "usage: cd directoryName\n";
     return this;
-  }  // if two many arguments
+  }  // if too many arguments
 
   if (strcmp(arguments[1], "..") == 0)
   {
