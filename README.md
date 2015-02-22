@@ -26,4 +26,9 @@ umask:
 
 umask [0-7] // Will set permissions for new directories made corresponding to octal values
 
+chmod:
+
+chmod [permissions] [directory_name] // will change permissions of directory/ only reads in octals at the moment
+Example: "chmod 755 filename" will change permissions to rwxr-xr-x
+
 #end
